@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  php:
+    build: .
+    depends_on:
+      - mysql
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: sh -c "composer install && php -S 0.0.0.0:8000"
+    environment:
+      - DEV_ENV=warden
+      - XDEBUG_CLIENT_HOST=10.211.55.2
+      - PHP_IDE_CONFIG=serverName=host.docker.internal
+      - XDEBUG_CONFIG=idekey=PHPSTORM
+      - DATABASE_HOST=mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=kp
+    ports:
+      - "8000:8000"
+
+  mysql:
+    image: mariadb:10.5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: kp
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql_data:

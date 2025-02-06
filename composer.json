@@ -1,0 +1,19 @@
+{
+    "name": "dejan/kupujemprodajem",
+    "version": "1.0.0",
+    "autoload": {
+        "psr-4": {
+            "src\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dejan B",
+            "email": "beljic@gmail.com"
+        }
+    ],
+    "require": {
+      "ext-mysqli": "*",
+      "ext-pdo": "*"
+    }
+}
