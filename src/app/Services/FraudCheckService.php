@@ -1,5 +1,5 @@
 <?php
-namespace src\App\Services;
+namespace src\app\Services;
 
 class FraudCheckService {
     public function isFraudulent(string $email, string $ip): bool {

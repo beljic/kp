@@ -23,4 +23,9 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 COPY . .
 
+# Ensure log directory and file exist
+RUN mkdir -p /app/logs && \
+    touch /app/logs/app.log && \
+    chmod -R 0777 /app/logs
+
 CMD ["php", "-S", "0.0.0.0:8000"]

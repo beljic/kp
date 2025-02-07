@@ -1,5 +1,5 @@
 <?php
-namespace src\App\Responses;
+namespace src\app\Responses;
 
 class JsonResponse {
     public static function send(array $data, int $status = 200): void {

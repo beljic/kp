@@ -1,5 +1,5 @@
 <?php
-namespace src\App\Helpers;
+namespace src\app\Helpers;
 
 trait Logger
 {

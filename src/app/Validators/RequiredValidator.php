@@ -1,11 +1,16 @@
 <?php
-namespace src\App\Validators;
+namespace src\app\Validators;
 
-class RequiredFieldValidator implements ValidatorInterface
+class RequiredValidator implements ValidatorInterface
 {
-    public static function validate(string $value): bool
+    public function validate(mixed $value): bool
     {
         return !empty($value);
+    }
+
+    public function getErrorMessage(): string
+    {
+        return 'Field is required';
     }
 
     public static function validateMultiple(array $fields): array

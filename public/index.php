@@ -1,14 +1,23 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
-use src\App\Services\UserService;
-use src\App\Validators\EmailValidator;
-use src\App\Validators\PasswordValidator;
+use Dotenv\Dotenv;
+use src\app\Resource\Database\Database;
+use src\app\Resource\Database\UserRepository;
+use src\app\Services\MailService;
+use src\app\Services\UserService;
+use src\app\Validators\EmailValidator;
+use src\app\Validators\PasswordMatchValidator;
+use src\app\Validators\PasswordValidator;
+use src\app\Validators\RequiredValidator;
 
 session_start();
 
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 try {
-    if ($argc < 3) {
+    if ($argc < 4) {
         throw new \InvalidArgumentException("Usage: php public/index.php <email> <password> <password2>");
     }
 
@@ -16,9 +25,23 @@ try {
     $password = $argv[2];
     $password2 = $argv[3];
 
-    $userService = new UserService(new EmailValidator(), new PasswordValidator());
+    $validators = [
+        'email' => [new RequiredValidator(), new EmailValidator()],
+        'password' => [new RequiredValidator(), new PasswordValidator()],
+        'password2' => [new RequiredValidator(), new PasswordMatchValidator()]
+    ];
 
-    if (!$userService->validate($email, $password, $password2)) {
+    $database = new Database();
+    $userRepository = new UserRepository($database);
+    $userService = new UserService($userRepository, $validators);
+
+    $data = [
+        'email' => $email,
+        'password' => $password,
+        'password2' => $password2
+    ];
+
+    if (!$userService->validate($data)) {
         throw new \InvalidArgumentException($userService->getErrorMessage());
     }
 

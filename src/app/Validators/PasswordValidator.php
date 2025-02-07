@@ -1,8 +1,8 @@
 <?php
-namespace src\App\Validators;
+namespace src\app\Validators;
 
 class PasswordValidator implements ValidatorInterface {
-    public function validate(string $password): bool {
+    public function validate(mixed $password): bool {
         return strlen($password) >= 8;
     }
 
