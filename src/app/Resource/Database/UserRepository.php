@@ -4,12 +4,19 @@ namespace src\app\Resource\Database;
 use Exception;
 use src\app\Helpers\Logger;
 
-readonly class UserRepository {
+readonly class UserRepository
+{
     use Logger;
 
-    public function __construct(private Database $db) {}
+    public function __construct(private Database $db)
+    {
+    }
 
-    public function emailExists(string $email): bool {
+    /**
+     * @throws Exception
+     */
+    public function emailExists(string $email): bool
+    {
         try {
             $query = "SELECT COUNT(*) FROM user WHERE email = ?";
             $stmt = $this->db->getConnection()->prepare($query);
@@ -25,7 +32,11 @@ readonly class UserRepository {
         }
     }
 
-    public function createUser(string $email, string $password): int {
+    /**
+     * @throws Exception
+     */
+    public function createUser(string $email, string $password): int
+    {
         try {
             $query = "INSERT INTO user (email, password, created_at) VALUES (?, ?, NOW())";
             $stmt = $this->db->getConnection()->prepare($query);
@@ -41,7 +52,11 @@ readonly class UserRepository {
         }
     }
 
-    public function updateUser(int $userId, array $fields): void {
+    /**
+     * @throws Exception
+     */
+    public function updateUser(int $userId, array $fields): void
+    {
         try {
             $setParts = [];
             $types = '';
@@ -66,7 +81,11 @@ readonly class UserRepository {
         }
     }
 
-    public function logUserAction(int $userId, string $action): void {
+    /**
+     * @throws Exception
+     */
+    public function logUserAction(int $userId, string $action): void
+    {
         try {
             $query = "INSERT INTO user_log (user_id, action, log_time) VALUES (?, ?, NOW())";
             $stmt = $this->db->getConnection()->prepare($query);

@@ -5,11 +5,16 @@ use mysqli;
 use Exception;
 use src\app\Helpers\Logger;
 
-class Database {
+class Database
+{
     use Logger;
     private mysqli $connection;
 
-    public function __construct() {
+    /**
+     * @throws Exception
+     */
+    public function __construct()
+    {
         $host = $_ENV['DB_HOST'];
         $dbname = $_ENV['DB_NAME'];
         $username = $_ENV['DB_USER'];
@@ -23,7 +28,8 @@ class Database {
         }
     }
 
-    public function getConnection(): mysqli {
+    public function getConnection(): mysqli
+    {
         return $this->connection;
     }
 }

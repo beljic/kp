@@ -28,7 +28,7 @@ trait Logger
      */
     public function logInfo(string $message): void
     {
-        $this->log($message, 'INFO');
+        $this->log($message);
     }
 
     /**
