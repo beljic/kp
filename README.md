@@ -27,8 +27,8 @@ Ostali validatori koji se koriste u projektu:
 - `PasswordValidator` – Validacija jačine lozinke
 - `RequiredValidator` – Provera da li je polje popunjeno
 - `EmailExistsValidator` – Provera da li email već postoji u bazi
-- `PasswordMatchValidator` – Provera podudaranja lozinki
-- `MaxMindValidator` – Provera geolokacije korisnika
+- `PasswordMatchValidator` – Provera podudaranje lozinki
+- `MaxMindValidator` – Provera MaxMind system
 
 ### Open/Closed Principle (OCP)
 Klase su otvorene za proširenje, ali zatvorene za modifikaciju. Na primer, klasa `UserService` može biti proširena novim validatorima bez modifikacije postojećeg koda.
